@@ -21,7 +21,7 @@ dependencies = [
     "imageio",
     "numpy<2",
     "opencv-python",
-    "xformers",
+    # "xformers",  # NVIDIA-only – AMD/ROCm users omit this; run_amd.py patches it at runtime
     "open3d",
     "fastapi",
     "uvicorn",
@@ -44,7 +44,9 @@ dependencies = [
 [project.optional-dependencies]
 app = ["gradio>=5", "pillow>=9.0"] # requires that python3>=3.10
 gs = ["gsplat @ git+https://github.com/nerfstudio-project/gsplat.git@0b4dddf04cb687367602c01196913cde6a743d70"]
-all = ["depth-anything-3[app,gs]"]
+# NVIDIA users can install xformers for fused kernels: pip install "depth-anything-3[xformers]"
+xformers = ["xformers"]
+all = ["depth-anything-3[app,gs,xformers]"]
 
 
 [project.scripts]
